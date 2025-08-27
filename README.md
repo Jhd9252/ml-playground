@@ -27,25 +27,34 @@
 
 ---
 
-## ✅ Current (Mock Frontend Implementation)
-
-- A working **React frontend** with mock APIs for:
-  - Training
-  - Submission
-  - Leaderboard display
+## ✅ Current 
+- Planning basic concepts (done)
+- Basic project structure, setup, dependencies (done)
+- Basic render in App.js (done)
+- DatasetDropdown component (done)
+- ModelDropdown component (done)
+- TrainTestSplit component (done)
+- ModelParameters component (done)
+- TrainButton component with mock API (done)
+- ResultDisplay component with mock API (done)
+- Leaderboard component with mock API (done)
+- Page Styling with TailwindCSS (done)
 
 ---
 
-## Next Steps
+## Next
 
-- ❌ Set up **MongoDB Atlas** and connect
-- ❌ Build **ML Service (Python/Flask)** to handle actual machine learning
-- ❌ Build **Backend API (Node.js/Express)** to interface with ML service and DB
-- ❌ Replace frontend mock APIs with real **API calls**
-- ❌ Test everything **locally**
-- ❌ Deploy backend to **Railway/Render**
-- ❌ Deploy frontend to **Vercel**
-- ❌ Test the **complete user flow**
+
+
+- set up MongoDB Atlas and connect to basic backend (node, express)
+- create and test API for pulling leadership data (move mock to DB)
+
+- build ML services (python, flask) to handle model training 
+- create and test API for training and display
+- create and test API for result submission to DB and display
+
+- Deploy backend to railway/render, frontend to vercel
+- test complete user experience
 
 ---
 
