@@ -158,23 +158,3 @@ railway up
 2. Backend: http://localhost:5000
 3. ML Service: http://localhost:8000
 
-# Project Structure: 
-ml-playground/
-├── frontend/                # React app 
-│   ├── src/
-│   │   ├── App.js           # Main React component
-│   │   └── App.css          # Styles
-│   ├── package.json         # Frontend dependencies
-│   └── Dockerfile           # How to containerize frontend
-│
-├── backend/                 # Express.js server (API)
-│   ├── server.js            # Main server file
-│   ├── package.json         # Backend dependencies  
-│   └── Dockerfile           # How to containerize backend
-│
-├── ml-service/              # Python ML service
-│   ├── app.py               # Flask server with ML logic
-│   ├── requirements.txt     # Python dependencies
-│   └── Dockerfile           # How to containerize ML service
-│
-└── docker-compose.yml     # Runs all services together locally
