@@ -31,9 +31,6 @@ function MLPlayground() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   //////////////////////////////////////////////////////////////////////////////////  
-  // Handlers - removed handleParameterChange as it's redundant with setParameters
-  //////////////////////////////////////////////////////////////////////////////////
-
 
   // on mount, load leaderboard (start with mock data)
   useEffect(() => {
