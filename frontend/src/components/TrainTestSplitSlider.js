@@ -13,7 +13,7 @@ const TrainTestSplitSlider = ({ trainTestSplit, onTrainTestSplitChange }) => {
         step="0.05"
         value={trainTestSplit}
         onChange={(e) => onTrainTestSplitChange(parseFloat(e.target.value))}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
       />
       <div className="flex justify-between text-xs text-gray-500 mt-1">
         <span>50% Train</span>

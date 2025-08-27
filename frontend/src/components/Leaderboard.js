@@ -5,9 +5,9 @@ const Leaderboard = ({ leaderboard }) => {
     <div className="bg-white rounded-lg shadow-lg p-6">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">🏆 Leaderboard</h2>
       <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="bg-gray-50">
+        <table className="w-full border-collapse">
+          <thead className="bg-gray-50">
+            <tr>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Rank</th>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Alias</th>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Dataset</th>
@@ -17,7 +17,7 @@ const Leaderboard = ({ leaderboard }) => {
           </thead>
           <tbody className="divide-y divide-gray-200">
             {leaderboard.map((entry, index) => (
-              <tr key={entry._id} className={`${index < 3 ? 'bg-yellow-50' : 'hover:bg-gray-50'}`}>
+              <tr key={entry._id} className={`hover:bg-gray-50 ${index < 3 ? 'bg-yellow-50' : ''}`}>
                 <td className="px-4 py-3">
                   <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${
                     index === 0 ? 'bg-yellow-400 text-yellow-900' :

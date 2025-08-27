@@ -27,7 +27,7 @@
 
 ---
 
-## ✅ Current (Mock Implementation)
+## ✅ Current (Mock Frontend Implementation)
 
 - A working **React frontend** with mock APIs for:
   - Training

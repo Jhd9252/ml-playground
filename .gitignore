@@ -11,6 +11,8 @@
 /backend/node_modules
 /backend/.env
 
+planning.txt
+
 # testing
 /coverage
 

@@ -17,8 +17,8 @@ function MLPlayground() {
   // States (user options)
   const [selectedDataset, setSelectedDataset] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
-  const [parameters, setParameters] = useState({});
   const [trainTestSplit, setTrainTestSplit] = useState(0.8);
+  const [parameters, setParameters] = useState({});
 
   // Send user options to backend and get results
   const [loading, setLoading] = useState(false);
@@ -106,23 +106,23 @@ function MLPlayground() {
 
   //////////////////////////////////////////////////////////////////////////////////
   return (
-    <div className = 'min-h-screen bg-gray-50'>
+    <div className="min-h-screen bg-gray-50">
 
-      <header className = 'bg-blue-600 text-white py-6'>
-        <div className = 'max-w-6xl mx-auto px-4'>
-          <h1 className = 'text-3xl font-bold text-center'> ML PlayGround</h1>
-          <p className = 'text-center mt-2 text-blue-100'> 
+      <header className="bg-blue-600 text-white py-6">
+        <div className="max-w-6xl mx-auto px-4">
+          <h1 className="text-3xl font-bold text-center">ML PlayGround</h1>
+          <p className="text-center mt-2 text-blue-100"> 
             Train classification machine learning models with interactive parameters
           </p>
         </div>
       </header>
   
-      <div className = 'max-w-6xl mx-auto px-4 py-8'>
+      <div className="max-w-6xl mx-auto px-4 py-8">
 
         {/* Main Controls */}
-        <div className = 'bg-white rounded-lg shadow-lg p-6 mb-8'>
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-6 text-gray-800">Configure Your Model</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
 
             {/* Dataset Selection */}
             <DatasetDropdown 

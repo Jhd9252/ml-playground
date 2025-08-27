@@ -12,25 +12,25 @@ const ResultsDisplay = ({
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Results</h2>
-      <div className="grid md:grid-cols-3 gap-4 mb-6">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Results</h2>
+      <div className="grid gap-4 mb-6 md:grid-cols-3">
         <div className="bg-blue-50 p-4 rounded-lg text-center">
-          <div className="text-3xl font-bold text-blue-600">
+          <div className="text-3xl font-bold text-blue-600 mb-1">
             {(results.accuracy * 100).toFixed(1)}%
           </div>
-          <div className="text-blue-800 font-medium">Accuracy</div>
+          <div className="text-blue-800 font-medium text-sm">Accuracy</div>
         </div>
         <div className="bg-green-50 p-4 rounded-lg text-center">
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-bold text-green-600 mb-1">
             {results.train_size}
           </div>
-          <div className="text-green-800 font-medium">Train Samples</div>
+          <div className="text-green-800 font-medium text-sm">Train Samples</div>
         </div>
         <div className="bg-purple-50 p-4 rounded-lg text-center">
-          <div className="text-2xl font-bold text-purple-600">
+          <div className="text-2xl font-bold text-purple-600 mb-1">
             {results.test_size}
           </div>
-          <div className="text-purple-800 font-medium">Test Samples</div>
+          <div className="text-purple-800 font-medium text-sm">Test Samples</div>
         </div>
       </div>
       
@@ -47,7 +47,7 @@ const ResultsDisplay = ({
           />
           <button 
             onClick={onSubmitToLeaderboard}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors duration-200"
+            className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
           >
             Submit
           </button>
