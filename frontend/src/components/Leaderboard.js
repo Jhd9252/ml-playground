@@ -17,7 +17,7 @@ const Leaderboard = ({ leaderboard }) => {
           </thead>
           <tbody className="divide-y divide-white-500 ">
             {leaderboard.map((entry, index) => (
-              <tr key={entry._id} className={`hover:bg-gray-50 ${index < 3 ? 'bg-yellow-100' : 'bg-gray-50'}`}>
+              <tr key={entry._id} className={`hover:bg-gray-50 ${index < 3 ? 'bg-purple-100' : 'bg-gray-50'}`}>
                 <td className="px-4 py-3">
                   <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${
                     index === 0 ? 'bg-yellow-400 text-yellow-900' :

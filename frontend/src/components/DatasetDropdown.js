@@ -4,7 +4,7 @@ const DatasetDropdown = ({ datasets, selectedDataset, onDatasetChange }) => {
   return (
     <div>
 
-      <label className="block text-sm font-medium text-white-500 mb-2">
+      <label className="block text-sm font-medium text-center text-white-500 mb-2">
         Choose Dataset
       </label>
 

@@ -3,7 +3,7 @@ import React from 'react';
 const ModelDropdown = ({ models, selectedModel, onModelChange }) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-white-500 mb-2">
+      <label className="block text-center text-sm font-medium text-white-500 mb-2">
         Choose Model
       </label>
       <select 
