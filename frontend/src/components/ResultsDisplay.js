@@ -11,8 +11,8 @@ const ResultsDisplay = ({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Results</h2>
+    <div className="bg-gray-600 rounded-lg shadow-lg p-6 mb-8">
+      <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">Results</h2>
       <div className="grid gap-4 mb-6 md:grid-cols-3">
         <div className="bg-blue-50 p-4 rounded-lg text-center">
           <div className="text-3xl font-bold text-blue-600 mb-1">
@@ -36,7 +36,7 @@ const ResultsDisplay = ({
       
       {/* Submit to Leaderboard */}
       <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-medium text-gray-800 mb-3">Submit to Leaderboard</h3>
+        <h3 className="font-medium text-gray-800 text-center mb-3">Submit to Leaderboard</h3>
         <div className="flex gap-3">
           <input
             type="text"

@@ -2,10 +2,10 @@ import React from 'react';
 
 const Leaderboard = ({ leaderboard }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">🏆 Leaderboard</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+    <div className="bg-gray-600 rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">🏆 Leaderboard</h2>
+      <div className="overflow-x-auto rounded-lg">
+        <table className="w-full border-collapse bg-gray-50 ">
           <thead className="bg-gray-50">
             <tr>
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Rank</th>
@@ -15,15 +15,15 @@ const Leaderboard = ({ leaderboard }) => {
               <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">Accuracy</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-white-500 ">
             {leaderboard.map((entry, index) => (
-              <tr key={entry._id} className={`hover:bg-gray-50 ${index < 3 ? 'bg-yellow-50' : ''}`}>
+              <tr key={entry._id} className={`hover:bg-gray-50 ${index < 3 ? 'bg-yellow-100' : 'bg-gray-50'}`}>
                 <td className="px-4 py-3">
                   <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${
                     index === 0 ? 'bg-yellow-400 text-yellow-900' :
                     index === 1 ? 'bg-gray-400 text-gray-900' :
                     index === 2 ? 'bg-orange-400 text-orange-900' :
-                    'bg-gray-100 text-gray-700'
+                    'bg-gray-50 text-gray-700'
                   }`}>
                     {index + 1}
                   </span>

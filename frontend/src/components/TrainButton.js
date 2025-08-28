@@ -13,7 +13,7 @@ function TrainButton({
       <button 
         onClick={onTrainModel} 
         disabled={isDisabled}
-        className={`px-8 py-3 rounded-lg font-semibold text-lg text-white transition-all duration-200 ${
+        className={`px-8 py-3 rounded-lg font-semibold text-lg text-white-800 transition-all duration-200 ${
           isDisabled 
             ? 'bg-gray-400 cursor-not-allowed' 
             : 'bg-green-600 hover:bg-green-700 hover:scale-105 shadow-lg'
