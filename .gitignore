@@ -1,17 +1,18 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+
+# frontend
 /frontend/node_modules
 /frontend/public
 /frontend/.env
-
 /frontend/.pnp
 /frontend/.pnp.js
 
+# backend
 /backend/node_modules
 /backend/.env
 
-planning.txt
 
 # testing
 /coverage
@@ -29,3 +30,7 @@ planning.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+original_model.params.text
+planning.txt
+

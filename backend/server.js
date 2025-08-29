@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 // apply middleware (cors, parser)
 app.use(cors({ 
-  origin: process.env.FRONTEND_URL || '*'
+  origin: process.env.FRONTEND_URL
   // credentials: true
 }));
 
