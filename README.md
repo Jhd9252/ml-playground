@@ -3,8 +3,8 @@
 ## Deployment Strategy
 
 - **Frontend**: [Vercel](https://vercel.com/)
-- **Backend**: [Railway](https://railway.app/), [Render](https://render.com/), or [Heroku](https://www.heroku.com/) *(free tiers available)*
-- **ML Service**: Same platform as backend (containerized)
+- **Backend**: [Render](https://render.com/)
+- **ML Service**: Same platform as backend (spawn)
 - **Database**: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 ---
@@ -21,13 +21,20 @@
 
 ## Personal Goals
 
-- Learn, test, apply the basics of **HTML, CSS, JS**
+- Learn, test, apply the basics of **HTML, CSS, JS, React**
 - Build and integrate a backend using **Express/Node.js**
-- Get hands-on experience with **APIs** and **Docker**
+- Get hands-on experience with **RESTful APIs**, **CORS**, **deployment**
 
 ---
+## Challenges:
+- First time building a full stack SPA
+- First time using Tailwind CSS
+- React components, react hooks, async awaits, etc. 
+- CORS
+- Spawning python ML-service within Node
+---
 
-## ✅ Current (Runs Locally)
+## ✅ Current (Deployed)
 - Planning basic concepts (done)
 - Basic project structure, setup, dependencies (done)
 - Basic render in App.js (done)
@@ -46,16 +53,17 @@
 - Built/tested API for training displaying results (done)
 - Built/tested API for result submission to MongoDB (done)
 - Corrected routing and env for deployment (done)
-- Backend deployment on Render, setup, build scripts, tested connection with local frontend (done)
+- Backend deployment on Render, setup, build scripts. (done)
+- Test with local frontend and MongoDB (done)
+- Frontend deployment on Vercel, setup, build scripts. 
+- Tested full deployment and APIs (done)
 ---
 
 ## Next
-- Deploy backend to render, frontend to vercel
-- test complete user experience
-- Add more datasets (sklearn, processed)
+- Add more datasets (pre-cleaned)
 - Add more models and parameters
+- Create more difficulty in accuracy
 - Allow users to submit there own datasets
-
 ---
 
 ## Frontend Overview
@@ -92,7 +100,7 @@
 
 ---
 
-## Project Setup
+## Project Setup (Local)
 
 ### Frontend Setup (React + TailwindCSS)
 
@@ -102,72 +110,66 @@ cd frontend
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
-### Backend Setup
+### Backend Setup (Express, Node)
 
 ```bash
 mkdir backend
 cd backend
 
-# Initialize and install dependencies
-npm init -y
+npm init -y                 # Initialize package.json FIRST
 npm install express mongoose cors axios dotenv
-npm install -D nodemon
+npm install -D nodemon      # dev dependency for auto-restart
 
 # Create server.js manually
 ```
-## Testing
+---
+### Changing .env
+
+- Create a **/backend/.env** file with:
+
+```bash
+MONGODB_URI=<YOUR_DB_URL>
+FRONTEND_URL=http://localhost:3000
+PORT=5000
+```
+- Create a **/frontend/.env** file with REACT_APP_API_URL
+
+```bash
+REACT_APP_API_URL=http://localhost:5000
+```
+
+- This will allow local routes in the App.js, server.js, TrainButton.js, ResultsDisplay.js:
+
+
+---
+## Running
 
 ### Starting Frontend
+
 ```bash
 cd frontend
-npm install
 npm start
 ```
-
 ### Starting backend
 ```bash
-mkdir backend
 cd backend
-```
-#### Run backend with nodemon
-```bash
 npx nodemon server.js
-```
-#### Run backend with nodemon (scripts)
-##### In backend/package.json
 
-"scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
-}
+# OR 
 
-#### Run scripts using:
-```bash
+cd backend 
 npm run dev
 ```
 
+- To run "npm run dev" (cleaner and quicker), to to **package.json** and edit:
+- "scripts": {"start": "node server.js", "dev": "nodemon server.js"}
+
+---
 ## deployment 
-
-### backend (if with railway)
-```bash
-npm install -g @railway/cli
-railway login
-cd backend
-railway init
-railway up
-```
-
-### Deploy Frontend (if with Vercel)
-
-1. Connect GitHub repo to Vercel
-2. Set build command: npm run build
-3. Add env variable:
-4. REACT_APP_API_URL=your_backend_url
-
 
 # Access (Local Development)
 
 1. Frontend: http://localhost:3000
 2. Backend: http://localhost:5000
-3. ML Service: http://localhost:8000
+3. ML Service: http://localhost:8000 (Not needed if Node spawn)
 
