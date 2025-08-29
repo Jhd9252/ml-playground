@@ -1,5 +1,3 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -8,9 +6,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.datasets import load_iris, load_wine, load_breast_cancer
-
-app = Flask(__name__)
-CORS(app)
+import sys
+import json
 
 # Available datasets
 DATASETS = {
@@ -26,53 +23,53 @@ MODELS = {
     'svm': SVC
 }
 
-@app.route('/datasets', methods=['GET'])
-def get_datasets():
-    return jsonify(list(DATASETS.keys()))
-
-@app.route('/models', methods=['GET'])
-def get_models():
-    return jsonify(list(MODELS.keys()))
-
-@app.route('/train', methods=['POST'])
-def train_model():
+def main():
+    
     try:
-        data = request.json
-        dataset_name = data['dataset']
-        model_name = data['model']
-        parameters = data.get('parameters', {})
-        train_test_split_ratio = data.get('train_test_split', 0.8)
-        
+        # read JSON input from stdin
+        input_data = sys.stdin.read()
+        params = json.loads(input_data)
+
+        # access data
+        dataset_name = params.get('dataset')
+        model_name = params.get('model')
+        parameters = params.get('parameters', {})
+        tts = params.get('trainTestSplit', 0.7)
+
         # Load dataset
         dataset = DATASETS[dataset_name]()
         X, y = dataset.data, dataset.target
         
         # Split data
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, train_size=train_test_split_ratio, random_state=42
+            X, y, train_size=tts, random_state=42
         )
         
         # Create and train model
-        model_class = MODELS[model_name]
-        model = model_class(**parameters)
+        model = MODELS[model_name](**parameters) 
         model.fit(X_train, y_train)
         
         # Make predictions
         y_pred = model.predict(X_test)
         accuracy = accuracy_score(y_test, y_pred)
         
-        return jsonify({
+        # Prepare results
+        result = {
             'accuracy': float(accuracy),
             'train_size': len(X_train),
             'test_size': len(X_test),
-            'dataset_info': {
-                'features': dataset.feature_names.tolist() if hasattr(dataset, 'feature_names') else [],
-                'target_names': dataset.target_names.tolist() if hasattr(dataset, 'target_names') else []
-            }
-        })
+            'dataset': dataset_name,
+            'model': model_name,
+            'trainTestSplit': tts
+        }
+        
+        # Print result JSON to stdout
+        print(json.dumps(result))
         
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        error_result = {'error': str(e)}
+        print(json.dumps(error_result))
+        sys.exit(1)  # exit with error code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    main()

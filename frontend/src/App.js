@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import mockAPI from './mockAPI';
+import axios from 'axios'
 import DatasetDropdown from './components/DatasetDropdown';
 import ModelDropdown from './components/ModelDropdown';
 import TrainTestSplitSlider from './components/TrainTestSplitSlider';
@@ -21,8 +22,8 @@ function MLPlayground() {
   const [parameters, setParameters] = useState({});
 
   // Send user options to backend and get results
-  const [loading, setLoading] = useState(false);
-
+  // const [training, setTraining] = useState(false);
+  
   // states (api results of training + option of setting alias for leaderboard)
   const [results, setResults] = useState(null);
   const [alias, setAlias] = useState('');
@@ -31,31 +32,35 @@ function MLPlayground() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   //////////////////////////////////////////////////////////////////////////////////  
-
+  
   // on mount, load leaderboard (start with mock data)
   useEffect(() => {
     loadLeaderboard();
   }, []);
-
+   
   // load leaderboard data from mock API
   const loadLeaderboard = async () => {
     try {
-      const data = await mockAPI.getLeaderboard();
-      setLeaderboard(data);
+      // const data = await mockAPI.getLeaderboard();
+      const data = await axios.get('http://localhost:5000/api/getLeaderboard');
+      console.log(typeof data)
+      console.log('Full Data: ', data)
+      setLeaderboard(data.data);
     } catch (error) {
       console.error('Error loading leaderboard:', error);
     }
   };
+  
 
   //////////////////////////////////////////////////////////////////////////////////
-  
+  /*
   // training model and mock API (frontend/src/mockAPI.js)
   const trainModel = async () => {
     if (!selectedDataset || !selectedModel) {
       alert('Please select both dataset and model');
       return;
     } 
-    setLoading(true);
+    setTraining(true);
     try {
       const config = {
         dataset: selectedDataset,
@@ -69,8 +74,9 @@ function MLPlayground() {
       console.error('Error training model:', error);
       alert('Error training model');
     }
-    setLoading(false);
+    setTraining(false);
   };
+  */
 
   //////////////////////////////////////////////////////////////////////////////////
   // submission API req 
@@ -157,10 +163,12 @@ function MLPlayground() {
 
           {/* Train Button on Selection */}
           <TrainButton 
-            loading = {loading} 
             selectedDataset = {selectedDataset} 
-            selectedModel={selectedModel} 
-            onTrainModel={trainModel}
+            selectedModel={selectedModel}
+            parameters = {parameters}
+            trainTestSplit ={trainTestSplit}
+            setResults={setResults}
+            // onTrainModel={trainModel}
           />
         </div>
 

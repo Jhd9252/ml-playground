@@ -54,10 +54,14 @@ app.get('/api/getLeaderboard', async (req, res) => {
   }
 });
 
+const { spawn } = require('child_process');
+
 // POST train req => (MVP) Run python on Node.JS
 app.post('/api/train', (req, res) => {
-  const inputData = JSON.stringify(req.body);
-  const python = spawn('python3', ['../ml-service/app.py', inputData]);
+
+  console.log('Received request to run python script...')
+  console.log('Attempting to spawn python child process from node...')
+  const python = spawn('python3', ['../ml-service/app.py']);
 
   let output = '';
   let errorOutput = '';
@@ -66,25 +70,29 @@ app.post('/api/train', (req, res) => {
     output += data.toString();
   });
 
-  python.stdout.on('data', (data) => {
+  python.stderr.on('data', (data) => {
     errorOutput += data.toString();
   });
+
 
   python.on('close', (code) => {
     if (code !== 0) {
       console.error('Python error: ', errorOutput);
-      return res.stats(500).json({error: 'Python script failed'});
+      return res.status(500).json({error: 'Python script failed'});
     }
 
-    try {
+    console.log('Attempting to train model...')
+    try {  
       const result = JSON.parse(output);
+      console.log('Sending result back...')
       res.json(result);
+      console.log('Success')
     } catch (error) {
+      console.error('JSON parse error:', error);
       res.status(500).json({error: 'Invalid JSON returned from Python'});
     }
-
   });
-
+  console.log('Sending input from application into python services...')
   python.stdin.write(JSON.stringify(req.body));
   python.stdin.end();
 });
