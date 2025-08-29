@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 // apply middleware (cors, parser)
 app.use(cors({ 
-  origin: process.env.FRONTEND_URL
+  origin: [process.env.FRONTEND_URL, 'http://localhost:3000']
   // credentials: true
 }));
 
@@ -53,7 +53,9 @@ app.get('/api/getLeaderboard', async (req, res) => {
   try {
     console.log('Received request to pull leaderboard data...')
     const results = await Leaderboard.find().sort( {accuracy: -1} ).limit(10);
+    console.log('Sending data back to frontend')
     res.json(results);
+    console.log('Success')
 
   } catch (error) {
     res.status(500).json({error: error.message});
