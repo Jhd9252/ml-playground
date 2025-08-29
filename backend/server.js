@@ -12,7 +12,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // apply middleware (cors, parser)
-app.use(cors());
+app.use(cors({
+  // origin: process.env.FRONTEND_URL || '*'
+}));
+
 app.use(express.json());
 
 // import routes (not needed in MVP)
@@ -59,7 +62,7 @@ app.post('/api/train', (req, res) => {
 
   console.log('Received request to run python script...')
   console.log('Attempting to spawn python child process from node...')
-  const python = spawn('python3', ['../ml-service/app.py']);
+  const python = spawn('python3', ['./ml-service/app.py']);
  
   let output = '';
   let errorOutput = ''; 

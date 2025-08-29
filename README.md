@@ -27,7 +27,7 @@
 
 ---
 
-## ✅ Current 
+## ✅ Current (Runs Locally)
 - Planning basic concepts (done)
 - Basic project structure, setup, dependencies (done)
 - Basic render in App.js (done)
@@ -39,22 +39,21 @@
 - ResultDisplay component with mock API (done)
 - Leaderboard component with mock API (done)
 - Page Styling with TailwindCSS (done)
+- MongoDB Atlas installation, setup, connection (done)
+- Tested DB connection with mock data in MongoDB (done)
+- Built/tested API for pulling leaderboard data (done)
+- Built ML service in python file (running Node spawn) (done)
+- Built/tested API for training displaying results (done)
+- Built/tested API for result submission to MongoDB (done)
 
 ---
 
 ## Next
-
-
-
-- set up MongoDB Atlas and connect to basic backend (node, express)
-- create and test API for pulling leadership data (move mock to DB)
-
-- build ML services (python, flask) to handle model training 
-- create and test API for training and display
-- create and test API for result submission to DB and display
-
-- Deploy backend to railway/render, frontend to vercel
+- Deploy backend to render, frontend to vercel
 - test complete user experience
+- Add more datasets (sklearn, processed)
+- Add more models and parameters
+- Allow users to submit there own datasets
 
 ---
 
@@ -126,20 +125,24 @@ npm start
 
 ### Starting backend
 ```bash
+mkdir backend
 cd backend
-npm install
-npm run dev
 ```
-### starting ML service
+#### Run backend with nodemon
 ```bash
-cd ml-service
-pip install -r requirements.txt
-python app.py
+npx nodemon server.js
 ```
+#### Run backend with nodemon (scripts)
+##### In backend/package.json
 
-### Run with Docker Compose (Local Dev)
+"scripts": {
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+}
+
+#### Run scripts using:
 ```bash
-docker-compose up
+npm run dev
 ```
 
 ## deployment 

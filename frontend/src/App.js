@@ -18,7 +18,7 @@ function MLPlayground() {
   // States (user options)
   const [selectedDataset, setSelectedDataset] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
-  const [trainTestSplit, setTrainTestSplit] = useState(0.8);
+  const [trainTestSplit, setTrainTestSplit] = useState(0.5);
   const [parameters, setParameters] = useState({});
   
   // states (api results of training + option of setting alias for leaderboard)
@@ -40,6 +40,7 @@ function MLPlayground() {
   const loadLeaderboard = async () => {
     try {
       // const data = await mockAPI.getLeaderboard();
+      // CHANGE FOR DEPLOYMENT
       const data = await axios.get('http://localhost:5000/api/getLeaderboard');
       setLeaderboard(data.data);
     } catch (error) {

@@ -36,6 +36,18 @@ def main():
         parameters = params.get('parameters', {})
         tts = params.get('trainTestSplit', 0.7)
 
+        # Validate dataset
+        if dataset_name not in DATASETS:
+            raise ValueError(f"Dataset '{dataset_name}' not supported. Choose from {list(DATASETS.keys())}.")
+
+        # Validate model
+        if model_name not in MODELS:
+            raise ValueError(f"Model '{model_name}' not supported. Choose from {list(MODELS.keys())}.")
+
+        # Validate trainTestSplit
+        if not isinstance(tts, (float, int)) or not 0 < tts < 1:
+            raise ValueError("trainTestSplit must be a float between 0 and 1 (exclusive).")
+
         # Load dataset
         dataset = DATASETS[dataset_name]()
         X, y = dataset.data, dataset.target
@@ -68,7 +80,7 @@ def main():
         
     except Exception as e:
         error_result = {'error': str(e)}
-        print(json.dumps(error_result))
+        print(json.dumps(error_result), file=sys.stderr)
         sys.exit(1)  # exit with error code
 
 if __name__ == '__main__':
