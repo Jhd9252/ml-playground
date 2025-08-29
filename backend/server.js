@@ -11,10 +11,15 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Health check on deployment
+app.get('/', (req, res) => {
+    res.send('Backend is running');
+  });
+
 // apply middleware (cors, parser)
 app.use(cors({ 
-  origin: 'http://localhost:3000'
-  // origin: process.env.FRONTEND_URL || '*'
+  origin: process.env.FRONTEND_URL || '*'
+  // credentials: true
 }));
 
 app.use(express.json());
@@ -46,6 +51,7 @@ const Leaderboard = mongoose.model('Leaderboard', leaderboardSchema);
 // GET leaderboard stats
 app.get('/api/getLeaderboard', async (req, res) => {
   try {
+    console.log('Received request to pull leaderboard data...')
     const results = await Leaderboard.find().sort( {accuracy: -1} ).limit(10);
     res.json(results);
 
@@ -95,6 +101,10 @@ app.post('/api/train', (req, res) => {
     }
   });
   console.log('Sending input from application into python services...')
+  // validate shape of req.body
+  if (!req.body || !req.body.dataset || !req.body.model) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
   python.stdin.write(JSON.stringify(req.body));
   python.stdin.end();
 });

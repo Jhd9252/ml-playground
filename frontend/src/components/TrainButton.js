@@ -24,7 +24,7 @@ function TrainButton({
     setTraining(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/train', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/train`, {
         dataset: selectedDataset,
         model: selectedModel,
         parameters: parameters,

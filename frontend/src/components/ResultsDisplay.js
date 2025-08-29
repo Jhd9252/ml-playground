@@ -21,7 +21,7 @@ const ResultsDisplay = ({
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/submit', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/submit`, {
         alias: alias.trim(),
         dataset: results.dataset,
         model: results.model,

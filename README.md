@@ -45,7 +45,7 @@
 - Built ML service in python file (running Node spawn) (done)
 - Built/tested API for training displaying results (done)
 - Built/tested API for result submission to MongoDB (done)
-
+- Corrected routing and env for deployment (done)
 ---
 
 ## Next

@@ -41,7 +41,7 @@ function MLPlayground() {
     try { 
       // const data = await mockAPI.getLeaderboard();
       // CHANGE FOR DEPLOYMENT
-      const data = await axios.get('http://localhost:5000/api/getLeaderboard');
+      const data = await axios.get(`${process.env.REACT_APP_API_URL}/api/getLeaderboard`);
       setLeaderboard(data.data);
     } catch (error) {
       console.error('Error loading leaderboard:', error);
