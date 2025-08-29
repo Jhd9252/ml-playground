@@ -1,13 +1,50 @@
 import React from 'react';
+import axios from 'axios'
 
 const ResultsDisplay = ({ 
   results, 
   alias, 
   onAliasChange, 
-  onSubmitToLeaderboard 
-}) => {
-  if (!results) {
-    return null;
+  setResults,
+  setDataset,
+  setModel,
+  loadLeaderboard
+  }) => {
+    if (!results) {
+      return null;
+    }
+  // submission API req 
+  const onSubmitToLeaderboard = async () => {
+    if (!alias.trim() || !results) {
+      alert('Please enter an alias and train a model first');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/submit', {
+        alias: alias.trim(),
+        dataset: results.dataset,
+        model: results.model,
+        accuracy: results.accuracy,
+        timestamp: new Date()
+      })
+      // reset leaderboard
+      onAliasChange('');
+      setResults(null);
+      setDataset('');
+      setModel('');
+      alert('Submitted to leaderboard!');
+      loadLeaderboard();
+    } catch (error) {
+      console.log(error)
+      if (error.response?.data?.error === 'Alias already exists') {
+        alert('Alias already exists');
+      } else {
+        alert('Submission failed')
+      }
+      
+      return;
+    }
   }
 
   return (

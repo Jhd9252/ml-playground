@@ -27,7 +27,7 @@ create model  / mongoose.model('NAME', Schema)      -> create mongoose class fro
 use model     / built-in methods model.save(), etc. -> interact with DB
 */
 const leaderboardSchema = new mongoose.Schema({
-  alias: String,
+  alias: {type: String, unique: true},
   dataset: String,
   model: String,
   accuracy: Number,
@@ -44,11 +44,7 @@ app.get('/api/getLeaderboard', async (req, res) => {
   try {
     const results = await Leaderboard.find().sort( {accuracy: -1} ).limit(10);
     res.json(results);
-    console.log('Got API Leaderboard requests success')
-    console.log(typeof results)
-    console.log('Full Data: ', results)
-    // console.log(typeof res)
-    // console.log(result)
+
   } catch (error) {
     res.status(500).json({error: error.message});
   }
@@ -59,12 +55,14 @@ const { spawn } = require('child_process');
 // POST train req => (MVP) Run python on Node.JS
 app.post('/api/train', (req, res) => {
 
+  console.log(req.body);
+
   console.log('Received request to run python script...')
   console.log('Attempting to spawn python child process from node...')
   const python = spawn('python3', ['../ml-service/app.py']);
-
+ 
   let output = '';
-  let errorOutput = '';
+  let errorOutput = ''; 
 
   python.stdout.on('data', (data) => {
     output += data.toString();
@@ -77,8 +75,8 @@ app.post('/api/train', (req, res) => {
 
   python.on('close', (code) => {
     if (code !== 0) {
-      console.error('Python error: ', errorOutput);
-      return res.status(500).json({error: 'Python script failed'});
+      console.error('Python error:', errorOutput || 'Unknown error (empty stderr)');
+      return res.status(500).json({ error: 'Python script failed', details: errorOutput });
     }
 
     console.log('Attempting to train model...')
@@ -99,14 +97,24 @@ app.post('/api/train', (req, res) => {
 
 // POST result submission to MongoDB
 app.post('/api/submit', async (req, res) => {
+  // check if alias exists
   try {
+    const exist = await Leaderboard.findOne({alias: req.body.alias});
+    if (exist) {
+      return res.status(400).json({ error: 'Alias already exists' });
+    }
+
     const entry = new Leaderboard(req.body);
     await entry.save();
-    res.json(newEntry);
+    res.json(entry);
+
   } catch (error) {
+    // if req slips through
+    if (error.code === 11000) {
+      return res.status(400).json({error: 'Alias already exists'});
+    }
     res.status(500).json({error: error.message});
   }
-  
 });
 
 // listen

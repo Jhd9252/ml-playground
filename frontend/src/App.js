@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import mockAPI from './mockAPI';
 import axios from 'axios'
 import DatasetDropdown from './components/DatasetDropdown';
 import ModelDropdown from './components/ModelDropdown';
@@ -15,21 +14,20 @@ function MLPlayground() {
   const datasets = ['iris', 'wine', 'breast_cancer'];
   const models = ['random_forest', 'logistic_regression', 'svm'];
 
+  
   // States (user options)
   const [selectedDataset, setSelectedDataset] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
   const [trainTestSplit, setTrainTestSplit] = useState(0.8);
   const [parameters, setParameters] = useState({});
-
-  // Send user options to backend and get results
-  // const [training, setTraining] = useState(false);
   
   // states (api results of training + option of setting alias for leaderboard)
   const [results, setResults] = useState(null);
   const [alias, setAlias] = useState('');
 
   // states (leaderboard data)
-  const [leaderboard, setLeaderboard] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]); 
+  
 
   //////////////////////////////////////////////////////////////////////////////////  
   
@@ -43,72 +41,14 @@ function MLPlayground() {
     try {
       // const data = await mockAPI.getLeaderboard();
       const data = await axios.get('http://localhost:5000/api/getLeaderboard');
-      console.log(typeof data)
-      console.log('Full Data: ', data)
       setLeaderboard(data.data);
     } catch (error) {
       console.error('Error loading leaderboard:', error);
     }
   };
   
-
   //////////////////////////////////////////////////////////////////////////////////
-  /*
-  // training model and mock API (frontend/src/mockAPI.js)
-  const trainModel = async () => {
-    if (!selectedDataset || !selectedModel) {
-      alert('Please select both dataset and model');
-      return;
-    } 
-    setTraining(true);
-    try {
-      const config = {
-        dataset: selectedDataset,
-        model: selectedModel,
-        parameters,
-        trainTestSplit
-      };
-      const response = await mockAPI.trainModel(config);
-      setResults(response);  
-    } catch (error) {
-      console.error('Error training model:', error);
-      alert('Error training model');
-    }
-    setTraining(false);
-  };
-  */
-
-  //////////////////////////////////////////////////////////////////////////////////
-  // submission API req 
-  const submitToLeaderboard = async () => {
-    if (!alias.trim() || !results) {
-      alert('Please enter an alias and train a model first');
-      return;
-    }
-    try {
-      const entry = {
-          alias: alias.trim(),
-          dataset: selectedDataset,
-          model: selectedModel,
-          accuracy: results.accuracy,
-          parameters,
-          trainTestSplit,
-          timestamp: new Date()
-      };
-      await mockAPI.submitToLeaderboard(entry);
-      // Add to local leaderboard and sort
-      const updatedLeaderboard = [...leaderboard, { ...entry, _id: Date.now().toString() }]
-      .sort((a, b) => b.accuracy - a.accuracy)
-      .slice(0, 10);
-      setLeaderboard(updatedLeaderboard);
-      setAlias('');
-      alert('Submitted to leaderboard!');
-    } catch (error) {
-        console.error('Error submitting to leaderboard:', error);
-        alert('Error submitting to leaderboard');
-        return;
-    }
-  };
+  
 
   //////////////////////////////////////////////////////////////////////////////////
   return (
@@ -142,6 +82,8 @@ function MLPlayground() {
               models = {models} 
               selectedModel = {selectedModel} 
               onModelChange={setSelectedModel}
+              parameters={parameters}
+              setParameters={setParameters}
             />
 
             
@@ -177,7 +119,11 @@ function MLPlayground() {
           results={results} 
           alias={alias} 
           onAliasChange={setAlias} 
-          onSubmitToLeaderboard={submitToLeaderboard}
+          setResults={setResults}
+          setDataset={setSelectedDataset}
+          setModel={setSelectedModel}
+          loadLeaderboard={loadLeaderboard}
+          
         />
 
         {/* Leaderboard */}
