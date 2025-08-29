@@ -38,7 +38,7 @@ function MLPlayground() {
    
   // load leaderboard data from mock API
   const loadLeaderboard = async () => {
-    try {
+    try { 
       // const data = await mockAPI.getLeaderboard();
       // CHANGE FOR DEPLOYMENT
       const data = await axios.get('http://localhost:5000/api/getLeaderboard');

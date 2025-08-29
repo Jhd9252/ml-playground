@@ -12,7 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // apply middleware (cors, parser)
-app.use(cors({
+app.use(cors({ 
+  origin: 'http://localhost:3000'
   // origin: process.env.FRONTEND_URL || '*'
 }));
 
@@ -100,6 +101,7 @@ app.post('/api/train', (req, res) => {
 
 // POST result submission to MongoDB
 app.post('/api/submit', async (req, res) => {
+  console.log('Attempting to submit results to MongoDB...')
   // check if alias exists
   try {
     const exist = await Leaderboard.findOne({alias: req.body.alias});
@@ -109,6 +111,7 @@ app.post('/api/submit', async (req, res) => {
 
     const entry = new Leaderboard(req.body);
     await entry.save();
+    console.log('Success')
     res.json(entry);
 
   } catch (error) {
@@ -116,8 +119,10 @@ app.post('/api/submit', async (req, res) => {
     if (error.code === 11000) {
       return res.status(400).json({error: 'Alias already exists'});
     }
+    console.log('Fail')
     res.status(500).json({error: error.message});
   }
+  
 });
 
 // listen
