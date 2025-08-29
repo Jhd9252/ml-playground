@@ -165,11 +165,11 @@ npm run dev
 - "scripts": {"start": "node server.js", "dev": "nodemon server.js"}
 
 ---
-## deployment 
 
-# Access (Local Development)
+## Access (Local Development)
 
 1. Frontend: http://localhost:3000
 2. Backend: http://localhost:5000
 3. ML Service: http://localhost:8000 (Not needed if Node spawn)
+
 
