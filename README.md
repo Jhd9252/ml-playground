@@ -46,6 +46,7 @@
 - Built/tested API for training displaying results (done)
 - Built/tested API for result submission to MongoDB (done)
 - Corrected routing and env for deployment (done)
+- Backend deployment on Render, setup, build scripts, tested connection with local frontend (done)
 ---
 
 ## Next
