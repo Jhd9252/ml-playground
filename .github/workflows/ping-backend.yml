@@ -3,7 +3,7 @@ name: Ping backend health check
 on:
   workflow_dispatch: 
   schedule:
-    - cron: '*/10 * * * *'  # Runs every 10 minutes
+    - cron: '*/20 * * * *'  # runs every 20min
 
 jobs:
   ping-backend:
