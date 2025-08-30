@@ -1,0 +1,12 @@
+name: Ping backend health check
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Runs every 10 minutes
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl health endpoint
+        run: curl -fsS https://ml-playground-two.vercel.app/
