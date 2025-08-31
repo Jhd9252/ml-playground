@@ -64,6 +64,9 @@
 - Add more models and parameters
 - Create more difficulty in accuracy
 - Allow users to submit there own datasets
+- Move python spawn to separate Python API service
+- clean server by moving API handling to router
+- Add login, authentication, authorization
 ---
 
 ## Frontend Overview
