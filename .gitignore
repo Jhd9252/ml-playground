@@ -31,4 +31,5 @@ yarn-error.log*
 
 original_model.params.text
 planning.txt
+.vscode
 
